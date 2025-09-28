@@ -103,11 +103,39 @@ public class BasePage {
 
 			config.setProperty("browser", browser);
 
+			System.out.println("If browser condition started");
 			if (config.getProperty("browser").equals("chrome")) {
 
 				WebDriverManager.chromedriver().setup();
-				driver = new ChromeDriver();
+				//driver = new ChromeDriver();
 				log.debug("Chrome launched !!!!");
+				
+				
+				System.out.println("If browser condition ended");
+
+				Map<String, Object> prefs = new HashMap<String, Object>();
+				prefs.put("profile.default_content_setting_values.notifications", 2);
+				prefs.put("credentials_enable_service", false);
+				prefs.put("profile.password_manager_enabled", false);
+				ChromeOptions options = new ChromeOptions();
+				options.addArguments("--disable-extensions");
+				options.addArguments("--disable-infobars");
+				System.out.println("Getting into base class");
+				//WebDriverManager.chromedriver().setup();
+				System.out.println("OPtions");
+				options.setExperimentalOption("excludeSwitches", new String[] { "enable-automation" });
+
+				// Disable the "Save password" info-bar
+				options.setExperimentalOption("prefs",
+						Map.of("credentials_enable_service", false, "profile.password_manager_enabled", false));
+				driver = new ChromeDriver(options);
+
+				// driver = new ChromeDriver();
+				System.out.println("Opening ZOHO");
+
+				System.out.println("Opening via config");
+
+				
 			} else if (config.getProperty("browser").equals("firefox")) {
 				System.setProperty("webdriver.firefox.bin", "/Applications/Firefox.app/Contents/MacOS/firefox");
 				WebDriverManager.firefoxdriver().setup();
@@ -121,28 +149,11 @@ public class BasePage {
 				log.debug("Internet Explorer launched !!!!");
 
 			}
-
-			Map<String, Object> prefs = new HashMap<String, Object>();
-			prefs.put("profile.default_content_setting_values.notifications", 2);
-			prefs.put("credentials_enable_service", false);
-			prefs.put("profile.password_manager_enabled", false);
-			ChromeOptions options = new ChromeOptions();
-			options.addArguments("--disable-extensions");
-			options.addArguments("--disable-infobars");
-			System.out.println("Getting into base class");
-			WebDriverManager.chromedriver().setup();
-			System.out.println("OPtions");
-			options.setExperimentalOption("excludeSwitches", new String[] { "enable-automation" });
-
-			// Disable the "Save password" info-bar
-			options.setExperimentalOption("prefs",
-					Map.of("credentials_enable_service", false, "profile.password_manager_enabled", false));
-			driver = new ChromeDriver(options);
-
-			// driver = new ChromeDriver();
-			System.out.println("Opening ZOHO");
-
+			
 			driver.get(config.getProperty("testsiteurl"));
+			System.out.println("ended config");
+
+			
 			log.debug("Navigated to :" + config.getProperty("testsiteuRL"));
 			driver.manage().window().maximize();
 			driver.manage().timeouts().implicitlyWait(Integer.parseInt(config.getProperty("implicit.wait")),
@@ -158,6 +169,10 @@ public class BasePage {
 		
 	}
 	
+	public static void quit() {
+		driver.quit();
+	}
+	
 	//Common Keywords
 	public static void click(String locator) {
 
@@ -168,6 +183,7 @@ public class BasePage {
 		} else if (locator.endsWith("_ID")) {
 			driver.findElement(By.id(OR.getProperty(locator))).click();
 		}
+		System.out.println("This is the locator " + locator + "config: "+ OR.getProperty(locator));
 		log.debug("Clicking on an Element : "+locator);
 		test.log(Status.INFO, "Clicking on : " + locator);
 	}

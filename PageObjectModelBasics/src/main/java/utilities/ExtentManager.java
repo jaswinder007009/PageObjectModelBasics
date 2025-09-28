@@ -12,6 +12,7 @@ public class ExtentManager {
 	public static ExtentReports getInstance() {
 		
 		if (extent == null) {
+			System.out.println("Getting EReports");
 			
 			String reportPath = System.getProperty("user.dir") 
 					+ "/target/surefire-reports/html/extent.html";

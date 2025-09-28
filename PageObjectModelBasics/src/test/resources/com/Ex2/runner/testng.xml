@@ -5,22 +5,16 @@
     <listeners>
       <listener class-name="org.uncommons.reportng.HTMLReporter"/>
       <listener class-name="org.uncommons.reportng.JUnitXMLReporter"/>
-       <listener class-name="com.w2a.listeners.CustomListeners"/>
+       <listener class-name="com.Ex2.listeners.CustomListeners"/>
   </listeners>
     
     
 	<test name="Login Test">
 		<classes>
-			<class name="com.w2a.testcases.LoginTest" />
+			<class name="com.Ex2.testcases.LoginTest" />
 		</classes>
 	</test> <!-- Test -->
 	
-	
-	<test name="Create Account Test">
-		<classes>
-			<class name="com.w2a.testcases.CreateAccountTest" />
-		</classes>
-	</test> <!-- Test -->
 	
 	
 </suite> <!-- Suite -->

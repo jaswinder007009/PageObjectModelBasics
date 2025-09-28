@@ -15,8 +15,8 @@ public class ZohoHomePage extends BasePage {
 		System.out.println("Ending sleep");
 		System.out.println("Finding element");
 
-		driver.findElement(By.xpath("(//a[text()='Sign In'])[1]")).click();
-		
+		//driver.findElement(By.xpath("(//a[text()='Sign In'])[1]")).click();
+		click("signInButton_XPATH");
 		
 		
 		System.out.println("Element found");
