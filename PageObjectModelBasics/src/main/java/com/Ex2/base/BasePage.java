@@ -11,7 +11,10 @@ import java.util.NoSuchElementException;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
-import org.apache.log4j.Logger;
+//import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -42,7 +45,10 @@ public class BasePage {
 	private static Properties OR = new Properties();
 	private static Properties config = new Properties();
 	private static FileInputStream fis;
-	private static Logger log = Logger.getLogger("depinoyLo");
+	
+	//private static Logger log = Logger.getLogger("depinoyLo");
+	private static final Logger log = LogManager.getLogger("devpinoyLogger");
+
 	public static ExcelReader excel = new ExcelReader(
 			System.getProperty("user.dir") + "//src//test//resources//com//Ex2//excel//testdata.xlsx");
 	//public static MonitoringMail mail = new MonitoringMail();
@@ -175,6 +181,7 @@ public class BasePage {
 	
 	//Common Keywords
 	public static void click(String locator) {
+		
 
 		if (locator.endsWith("_CSS")) {
 			driver.findElement(By.cssSelector(OR.getProperty(locator))).click();
@@ -184,6 +191,8 @@ public class BasePage {
 			driver.findElement(By.id(OR.getProperty(locator))).click();
 		}
 		System.out.println("This is the locator " + locator + "config: "+ OR.getProperty(locator));
+        log.info("Clicking on element");
+
 		log.debug("Clicking on an Element : "+locator);
 		test.log(Status.INFO, "Clicking on : " + locator);
 	}

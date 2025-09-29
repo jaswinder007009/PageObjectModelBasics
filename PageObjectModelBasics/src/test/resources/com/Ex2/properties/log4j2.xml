@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+
+    <Appenders>
+        <!-- Selenium.log (Rolling File Appender) -->
+        <RollingFile name="SeleniumFile"
+                     fileName="/Users/jschawla/git/PageObjectModelBasics/PageObjectModelBasics/src/test/resources/com/Ex2/logs/Selenium.log"
+                     filePattern="/Users/jschawla/git/PageObjectModelBasics/PageObjectModelBasics/src/test/resources/com/Ex2/logs/Selenium-%d{yyyy-MM-dd}.log">
+            <PatternLayout pattern="%d{ABSOLUTE} %5p %c{1}:%L - %m%n"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="5000KB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="1"/>
+        </RollingFile>
+
+        <!-- Application.log (Rolling File Appender) -->
+        <RollingFile name="ApplicationFile"
+                     fileName="/Users/jschawla/git/PageObjectModelBasics/PageObjectModelBasics/src/test/resources/com/Ex2/logs/Application.log"
+                     filePattern="/Users/jschawla/git/PageObjectModelBasics/PageObjectModelBasics/src/test/resources/com/Ex2/logs/Application-%d{yyyy-MM-dd}.log">
+            <PatternLayout pattern="%d{dd/MM/yyyy HH:mm:ss} %c %m%n"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="5000KB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="3"/>
+        </RollingFile>
+
+        <!-- Console for quick debugging -->
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="[%d{HH:mm:ss}] %-5level %logger{36} - %msg%n"/>
+        </Console>
+    </Appenders>
+
+    <Loggers>
+        <!-- Application logger (was devpinoyLogger) -->
+        <Logger name="devpinoyLogger" level="debug" additivity="false">
+            <AppenderRef ref="ApplicationFile"/>
+        </Logger>
+
+        <!-- Root logger -->
+        <Root level="debug">
+            <AppenderRef ref="SeleniumFile"/>
+            <AppenderRef ref="Console"/>
+        </Root>
+    </Loggers>
+
+</Configuration>

@@ -14,6 +14,8 @@ public class LoginTest extends BaseTest{
 		
 		ZohoHomePage zhp = new ZohoHomePage();
 	    LoginPage lp = zhp.goToSignIn();
+        //log.info("Clicking on element");
+
 	    ZohoAppPage zap= lp.doLogin("jaswindersinghchawla05@gmail.com", "TesterUser@123");
 		PeoplePage pp= zap.goToPeoplePage(); 
 		pp.PriceQuote();
